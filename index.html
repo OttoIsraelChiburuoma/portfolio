@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Israel Otto — IT Student & Self-Taught Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0B1220;
+    --surface:#121B2E;
+    --surface-2:#182338;
+    --line: rgba(231,236,245,0.12);
+    --text:#E7ECF5;
+    --text-dim:#8C99B3;
+    --amber:#F2B84B;
+    --teal:#4FD1C5;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--ink);
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{ background:var(--amber); color:var(--ink); }
+
+  h1,h2,h3{ font-family:'Space Grotesk', sans-serif; font-weight:600; letter-spacing:-0.01em; }
+  .mono{ font-family:'IBM Plex Mono', monospace; }
+
+  a{ color:inherit; }
+
+  .wrap{ max-width:920px; margin:0 auto; padding:0 28px; }
+
+  /* NAV */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(11,18,32,0.85);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{ display:flex; align-items:center; justify-content:space-between; height:64px; }
+  .brand{ font-family:'Space Grotesk'; font-weight:700; font-size:1.05rem; }
+  .brand span{ color:var(--amber); }
+  .navlinks{ display:flex; gap:28px; list-style:none; }
+  .navlinks a{
+    text-decoration:none; color:var(--text-dim); font-size:0.9rem;
+    font-family:'IBM Plex Mono'; transition:color .2s;
+  }
+  .navlinks a:hover{ color:var(--text); }
+  .navlinks a:focus-visible, a:focus-visible{ outline:2px solid var(--amber); outline-offset:3px; border-radius:2px; }
+
+  /* HERO */
+  header.hero{ padding:110px 0 90px; border-bottom:1px solid var(--line); position:relative; overflow:hidden; }
+  .eyebrow{
+    font-family:'IBM Plex Mono'; font-size:0.8rem; color:var(--teal);
+    letter-spacing:0.08em; text-transform:uppercase; margin-bottom:18px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{ content:''; width:8px; height:8px; border-radius:50%; background:var(--teal); box-shadow:0 0 0 4px rgba(79,209,197,0.15); }
+  .hero h1{ font-size:clamp(2.2rem, 5vw, 3.4rem); line-height:1.08; max-width:14ch; }
+  .hero h1 em{ font-style:normal; color:var(--amber); }
+  .hero p.lede{
+    margin-top:22px; max-width:52ch; color:var(--text-dim); font-size:1.08rem;
+  }
+  .hero-actions{ margin-top:34px; display:flex; gap:14px; flex-wrap:wrap; }
+  .btn{
+    font-family:'IBM Plex Mono'; font-size:0.85rem; padding:12px 20px;
+    border-radius:6px; text-decoration:none; transition:transform .15s, background .15s;
+    display:inline-block;
+  }
+  .btn-primary{ background:var(--amber); color:var(--ink); font-weight:500; }
+  .btn-primary:hover{ transform:translateY(-2px); }
+  .btn-ghost{ border:1px solid var(--line); color:var(--text); }
+  .btn-ghost:hover{ border-color:var(--teal); color:var(--teal); }
+
+  /* SECTION HEADERS */
+  section{ padding:80px 0; border-bottom:1px solid var(--line); }
+  .sec-label{
+    font-family:'IBM Plex Mono'; font-size:0.78rem; color:var(--text-dim);
+    text-transform:uppercase; letter-spacing:0.1em; margin-bottom:10px;
+  }
+  section h2{ font-size:1.8rem; margin-bottom:44px; }
+
+  /* PIPELINE (signature element) */
+  .pipeline{ position:relative; }
+  .pipeline-track{
+    position:absolute; left:19px; top:14px; bottom:14px; width:2px;
+    background:linear-gradient(to bottom, var(--teal), var(--line) 60%, var(--line));
+  }
+  .stage{ position:relative; padding-left:56px; margin-bottom:40px; }
+  .stage:last-child{ margin-bottom:0; }
+  .stage-node{
+    position:absolute; left:0; top:2px; width:40px; height:40px; border-radius:50%;
+    background:var(--surface); border:2px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'IBM Plex Mono'; font-size:0.75rem; color:var(--text-dim);
+  }
+  .stage.active .stage-node{ border-color:var(--amber); color:var(--amber); background:var(--surface-2); }
+  .stage-status{
+    font-family:'IBM Plex Mono'; font-size:0.72rem; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--teal); margin-bottom:6px; display:block;
+  }
+  .stage.pending .stage-status{ color:var(--text-dim); }
+  .stage h3{ font-size:1.15rem; margin-bottom:6px; }
+  .stage p{ color:var(--text-dim); font-size:0.95rem; max-width:56ch; }
+
+  /* SKILLS GRID */
+  .skills-grid{
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr));
+    gap:1px; background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden;
+  }
+  .skill-card{ background:var(--surface); padding:26px; }
+  .skill-card h3{
+font-size:0.95rem; font-family:'IBM Plex Mono'; color:var(--amber);
+    text-transform:uppercase; letter-spacing:0.04em; margin-bottom:12px;
+  }
+  .skill-card ul{ list-style:none; }
+  .skill-card li{
+    font-size:0.92rem; color:var(--text-dim); padding:5px 0;
+    border-top:1px solid var(--line); padding-top:9px; margin-top:9px;
+  }
+  .skill-card li:first-child{ border-top:none; margin-top:0; padding-top:0; }
+
+  /* ABOUT */
+  .about-grid{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:50px; align-items:start; }
+  @media (max-width:720px){ .about-grid{ grid-template-columns:1fr; } }
+  .about-grid p{ color:var(--text-dim); margin-bottom:16px; max-width:58ch; }
+  .fact-list{ font-family:'IBM Plex Mono'; font-size:0.88rem; }
+  .fact-list div{ display:flex; justify-content:space-between; gap:16px; padding:12px 0; border-top:1px solid var(--line); }
+  .fact-list div:first-child{ border-top:none; }
+  .fact-list dt{ color:var(--text-dim); }
+  .fact-list dd{ text-align:right; }
+
+  /* CONTACT */
+  .contact-box{
+    background:var(--surface); border:1px solid var(--line); border-radius:12px;
+    padding:44px; text-align:center;
+  }
+  .contact-box h2{ margin-bottom:12px; }
+  .contact-box p{ color:var(--text-dim); margin-bottom:30px; max-width:46ch; margin-left:auto; margin-right:auto; }
+  .contact-links{ display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+
+  footer{ padding:36px 0; text-align:center; color:var(--text-dim); font-family:'IBM Plex Mono'; font-size:0.8rem; }
+
+  @media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand">Israel Otto<span>.</span></div>
+    <ul class="navlinks">
+      <li><a href="#roadmap">Roadmap</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Faculty of Computing · Information Technology</div>
+    <h1>IT Student &amp; <em>Self-Taught</em> Developer</h1>
+    <p class="lede">Otto Israel Chiburuoma — building a structured path through data annotation, analytics, and systems, backed by strong writing and research skills.</p>
+    <div class="hero-actions">
+      <a href="#roadmap" class="btn btn-primary">See the roadmap</a>
+      <a href="#contact" class="btn btn-ghost">Get in touch</a>
+    </div>
+  </div>
+</header>
+
+<section id="roadmap">
+  <div class="wrap">
+    <div class="sec-label">Career Sequence</div>
+    <h2>How the path is staged</h2>
+    <div class="pipeline">
+      <div class="pipeline-track"></div>
+
+      <div class="stage active">
+        <div class="stage-node">01</div>
+        <span class="stage-status">In progress</span>
+        <h3>AI Data Annotation &amp; Evaluation</h3>
+        <p>Practicing response evaluation across factual accuracy, summarization quality, and safety-critical misinformation. Building toward active work on platforms like Mercor.</p>
+      </div>
+
+      <div class="stage pending">
+        <div class="stage-node">02</div>
+        <span class="stage-status">Next</span>
+        <h3>Data Analytics</h3>
+        <p>The second stage of the roadmap — chosen to compound directly on the analytical judgment built during annotation work.</p>
+      </div>
+
+      <div class="stage pending">
+        <div class="stage-node">03</div>
+        <span class="stage-status">Under evaluation</span>
+        <h3>Cybersecurity or Software Engineering</h3>
+        <p>Third track not yet finalized — weighing Security+ against a software engineering path, with the decision shaped by limited weekly availability and long-term fit.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-label">Capabilities</div>
+    <h2>Skills &amp; areas of study</h2>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <h3>Core Strengths</h3>
+        <ul>
+          <li>Writing</li>
+          <li>Research</li>
+          <li>Self-directed learning</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <h3>Programming &amp; Web</h3>
+        <ul>
+          <li>Object-oriented programming (Java)</li>
+          <li>Web &amp; e-commerce infrastructure</li>
+          <li>SSL/TLS &amp; encryption fundamentals</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <h3>AI &amp; Automation</h3>
+        <ul>
+          <li>No-code automation tools</li>
+          <li>Python</li>
+          <li>LangChain, RAG &amp; agentic frameworks</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <h3>Foundations</h3>
+        <ul>
+          <li>Undergraduate mathematics</li>
+          <li>Introductory economics</li>
+          <li>Data annotation &amp; evaluation methodology</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="sec-label">Background</div>
+    <h2>About</h2>
+    <div class="about-grid">
+      <div>
+        <p>I'm an Information Technology student in the Faculty of Computing, learning largely on my own initiative — across programming, web infrastructure, and the economic theory behind the systems I build.</p>
+        <p>My strengths are in writing and research, which I'm now applying to AI data annotation and evaluation work as a first step into the field, while planning a longer path toward data analytics and either cybersecurity or software engineering.</p>
+      </div>
+      <dl class="fact-list">
+        <div><dt>Full name</dt><dd>Otto Israel Chiburuoma</dd></div>
+        <div><dt>Field of study</dt><dd>Information Technology</dd></div>
+        <div><dt>Faculty</dt><dd>Computing</dd></div>
+        <div><dt>Current focus</dt><dd>AI annotation &amp; evaluation</dd></div>
+        <div><dt>Learning style</dt><dd>Self-taught</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<section id="contact" style="border-bottom:none;">
+  <div class="wrap">
+    <div class="contact-box">
+      <h2>Let's connect</h2>
+      <p>Open to opportunities in AI data annotation, evaluation, and entry-level IT work.</p>
+      <div class="contact-links">
+        <a class="btn btn-primary" href="mailto:Otto.israelchiburuoma@gmail.com">Email me</a>
+        <a class="btn btn-ghost" href="https://www.linkedin.com/in/israel-otto-651a47276" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Otto Israel Chiburuoma — built with intent, one stage at a time.
+</footer>
+
+</body>
+</html>
